@@ -8,7 +8,7 @@
 //#include <iostream>
 #include <string.h>
 #include <stdlib.h>
-#include <cstdio>
+//#include <cstdio>
 #include <pthread.h>
 
 /* assert(/tmp mounted to tmpfs, i.e. resides in RAM) */
