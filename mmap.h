@@ -8,6 +8,7 @@
 //#include <iostream>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 //#include <cstdio>
 #include <pthread.h>
 
@@ -16,11 +17,15 @@
 static const char* mmapFilePath = "/tmp/arduino";
 
 
-struct mmapData {
-  bool led8_on;   // led on IO8
-  bool led13_on;  // built-in led
+typedef struct mmapData_TAG {
+  int led8_on;   // led on IO8
+  int led13_on;  // built-in led
   pthread_mutex_t mutex;
   pthread_cond_t cond;
-};
+}MMAPDATA;
+
+typedef MMAPDATA* MMAPDATA_HANDLE;
+
+#define MAP_FAILED NULL
 
 #endif
