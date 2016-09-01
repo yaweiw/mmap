@@ -26,6 +26,4 @@ typedef struct mmapData_TAG {
 
 typedef MMAPDATA* MMAPDATA_HANDLE;
 
-#define MAP_FAILED NULL
-
 #endif
