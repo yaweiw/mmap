@@ -33,28 +33,28 @@ int main(int argc, char** argv) {
   if (argc == 1) { 
     Print("8:0");
     Print("13:0");
-    p_mmapData->led8_on = false;
-    p_mmapData->led13_on = false;
+    p_mmapData->led8_on = 0;
+    p_mmapData->led13_on = 0;
   }
   else if (argc > 1) {
     // assert(correct string given)
     int binNr = atol(argv[1]);
     if (binNr >= 10) {
       Print("8:1");
-      p_mmapData->led8_on = true; 
+      p_mmapData->led8_on = 1; 
     }
     else {
       Print("8:0");
-      p_mmapData->led8_on = false;
+      p_mmapData->led8_on = 0;
     }
     binNr %= 10;
     if (binNr == 1) {
       Print("13:1");
-      p_mmapData->led13_on = true; 
+      p_mmapData->led13_on = 1; 
     }
     else {
       Print("13:0");
-      p_mmapData->led13_on = false;
+      p_mmapData->led13_on = 0;
     }
   }
   // signal to waiting thread
