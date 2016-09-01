@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
   if (fd_mmapFile == -1) exitError("fd error; check errno for details");
   
   /* Map shared memory object read-writable */
-  p_mmapData = (MMAPDATA_HANDLE)(mmap(NULL, sizeof(struct MMAPDATA), PROT_READ | PROT_WRITE, MAP_SHARED, fd_mmapFile, 0));
+  p_mmapData = (MMAPDATA_HANDLE)(mmap(NULL, sizeof(MMAPDATA), PROT_READ | PROT_WRITE, MAP_SHARED, fd_mmapFile, 0));
   if (p_mmapData == MAP_FAILED) exitError("mmap error");
   /* the Arduino sketch might still be reading - by locking this program will be blocked until the mutex is unlocked from the reading sketch 
    * in order to prevent race conditions */
