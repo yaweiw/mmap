@@ -29,35 +29,14 @@ int main(int argc, char** argv) {
   if (p_mmapData == MAP_FAILED) exitError("mmap error");
   /* the Arduino sketch might still be reading - by locking this program will be blocked until the mutex is unlocked from the reading sketch 
    * in order to prevent race conditions */
-  if (pthread_mutex_lock(&(p_mmapData->mutex)) != 0) exitError("pthread_mutex_lock");
-  if (argc == 1) { 
-    Print("8:0");
-    Print("13:0");
-    p_mmapData->led8_on = 0;
-    p_mmapData->led13_on = 0;
+  while(getchar() != 'e')
+  {
+    if (pthread_mutex_lock(&(p_mmapData->mutex)) != 0) exitError("pthread_mutex_lock");
+    if (pthread_cond_wait(&(p_mmapData->cond), &(p_mmapData->mutex)) != 0) exitError("pthread_cond_wait");
+    // signal to waiting thread
+    printf("p_mmapData->light = %d", p_mmapData->light);
+    printf("p_mmapData->vibrant = %d", p_mmapData->vibrant);
+    if (pthread_mutex_unlock(&(p_mmapData->mutex)) != 0) exitError("pthread_mutex_unlock");
   }
-  else if (argc > 1) {
-    // assert(correct string given)
-    int binNr = atol(argv[1]);
-    if (binNr >= 10) {
-      Print("8:1");
-      p_mmapData->led8_on = 1; 
-    }
-    else {
-      Print("8:0");
-      p_mmapData->led8_on = 0;
-    }
-    binNr %= 10;
-    if (binNr == 1) {
-      Print("13:1");
-      p_mmapData->led13_on = 1; 
-    }
-    else {
-      Print("13:0");
-      p_mmapData->led13_on = 0;
-    }
-  }
-  // signal to waiting thread
-  if (pthread_mutex_unlock(&(p_mmapData->mutex)) != 0) exitError("pthread_mutex_unlock");
-  if (pthread_cond_signal(&(p_mmapData->cond)) != 0) exitError("pthread_cond_signal");
+  
 }

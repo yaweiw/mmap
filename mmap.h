@@ -1,6 +1,5 @@
-
-#ifndef MMAP_HPP
-#define MMAP_HPP
+#ifndef MMAP_H
+#define MMAP_H
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -18,8 +17,8 @@ static const char* mmapFilePath = "/tmp/arduino";
 
 
 typedef struct mmapData_TAG {
-  int led8_on;   // led on IO8
-  int led13_on;  // built-in led
+  int light;   // led on IO8
+  int vibrant;  // built-in led
   pthread_mutex_t mutex;
   pthread_cond_t cond;
 }MMAPDATA;
