@@ -6,10 +6,6 @@ void exitError(const char* errMsg) {
   exit(EXIT_FAILURE);
 }
 
-
-using namespace std;
-
-
 /**
  * @brief: for this example uses a binary string "<led8><led13>"; e.g. "11": both leds on
  * if no arg equals "00" 
